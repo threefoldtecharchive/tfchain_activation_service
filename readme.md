@@ -23,6 +23,6 @@ bash
 ```
 curl --header "Content-Type: application/json" \
   --request POST \
-  --data '{"kycSignature": "test", "data": {"name": "name"}, "substrateAccountID": "some_id"}' \
+  --data '{"kycSignature": "test", "data": {"name": "name", "email": "email"}, "substrateAccountID": "some_id"}' \
   http://localhost:3000/activate
 ```
