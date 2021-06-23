@@ -13,7 +13,7 @@ Run backend
 
 ```
 yarn
-node bin/www
+yarn start
 ```
 
 ## Post to localhost:3000/activate
