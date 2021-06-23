@@ -7,6 +7,7 @@ create `.env` file with following content:
 ```
 URL=wss://substrate01.threefold.io
 MNEMONIC=substrate ed25519 private words
+KYC_PUBLIC_KEY=kyc service 25119 public key
 ```
 
 Run backend
