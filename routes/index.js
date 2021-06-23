@@ -1,11 +1,15 @@
 const express = require('express')
 const router = express.Router()
-// const httpError = require('http-errors')
+const { validateActivation } = require('../controllers/substrate')
 
 const { validateBodyMiddleware } = require('../middleware/validator')
 
 router.post('/activate', validateBodyMiddleware('activate'), (req, res, next) => {
-  res.send({ status: 'success' })
+  const { body } = req
+
+  validateActivation(body)
+    .then(() => res.send(body))
+    .catch(next)
 })
 
 module.exports = router
