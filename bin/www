@@ -10,7 +10,8 @@ const log = require('../lib/logger')
 
 const REQUIRED_ENV_VARIABLES = [
   'MNEMONIC',
-  'URL'
+  'URL',
+  'KYC_PUBLIC_KEY'
 ]
 
 /**

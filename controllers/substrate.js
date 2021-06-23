@@ -1,17 +1,31 @@
 const { client } = require('../lib/substrate')
 const httpError = require('http-errors')
+const { take } = require('lodash')
 
 // 500 tokens with 12 decimals precision
 const AMOUNT = 1e12 * 500
 
-async function validateActivation (body) {
-  const { substrateAccountID } = body
+const { KYC_PUBLIC_KEY } = process.env
 
-  // TODO: verify kyc signature and data
+async function validateActivation (body) {
+  const { kycSignature, data, substrateAccountID } = body
+
+  const { email, name: identifier } = data
+  const originalData = `{ "email": "${email}", "identifier": "${identifier}" }`
+
+  try {
+    const buff = Buffer.from(kycSignature, 'base64')
+    const sig = take(buff, 64)
+
+    const valid = await client.verify(originalData, sig, KYC_PUBLIC_KEY)
+    if (!valid) throw httpError('signature is not valid')
+  } catch (error) {
+    throw httpError('failed to verify signature')
+  }
 
   const balance = await client.getBalanceOf(substrateAccountID)
   if (balance.free !== 0) {
-    throw httpError('account already activated', 400)
+    throw httpError('account already activated')
   }
 
   try {
