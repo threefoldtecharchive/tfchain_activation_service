@@ -36,8 +36,8 @@ async function validateActivation (body) {
   const { substrateAccountID } = body
 
   const balance = await client.getBalanceOf(substrateAccountID)
-  if (balance.free !== 0) {
-    throw httpError('account already activated')
+  if (balance.free > 1) {
+    throw httpError(409)
   }
 
   try {
