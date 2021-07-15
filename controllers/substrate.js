@@ -47,6 +47,51 @@ async function validateActivation (body) {
   }
 }
 
+async function createEntity (body, res, next) {
+  const { target, name, signature, countryID, cityID } = body
+
+  const entityByName = await client.getEntityIDByName(name)
+  if (entityByName !== 0) {
+    throw httpError(409)
+  }
+
+  const entityByPubkey = await client.getEntityIDByPubkey(target)
+  if (entityByPubkey !== 0) {
+    throw httpError(409)
+  }
+
+  try {
+    await client.createEntity(target, name, countryID, cityID, signature, result => {
+      if (result instanceof Error) {
+        console.log(result)
+        return
+      }
+      const { events = [], status } = result
+      console.log(`Current status is ${status.type}`)
+      res.write(status.type)
+      if (status.type === 'Invalid') {
+        res.end()
+      }
+      if (status.isFinalized) {
+        events.forEach(({ phase, event: { data, method, section } }) => {
+          if (section === 'system' && method === 'ExtrinsicFailed') {
+            console.log(`\t' ${phase}: ${section}.${method}:: ${data}`)
+            res.write('failure')
+            res.end()
+          } else if (section === 'system' && method === 'ExtrinsicSuccess') {
+            res.write('success')
+            res.end()
+            console.log(`\t' ${phase}: ${section}.${method}:: ${data}`)
+          }
+        })
+      }
+    })
+  } catch (error) {
+    throw httpError(error.toString())
+  }
+}
+
 module.exports = {
-  validateActivation
+  validateActivation,
+  createEntity
 }
