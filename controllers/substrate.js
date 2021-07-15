@@ -51,8 +51,13 @@ async function validateActivation (body) {
 async function createEntity (body, res, next) {
   const { target, name, signature, countryID, cityID } = body
 
-  const ssAddress = client.keyring.addFromAddress('0x54b843bb1ef38f920271c8c9b7849274d3f3ea57059d4f2ec6e25837a7462f4e')
-  console.log(ssAddress.address)
+  let keyring
+  try {
+    keyring = client.keyring.addFromAddress(target)
+  } catch (error) {
+    res.write(error.toString())
+    return res.end()
+  }
 
   const entityByName = await client.getEntityIDByName(name)
   if (entityByName !== 0) {
@@ -61,7 +66,7 @@ async function createEntity (body, res, next) {
     // throw httpError(409)
   }
 
-  const entityByPubkey = await client.getEntityIDByPubkey(target)
+  const entityByPubkey = await client.getEntityIDByPubkey(keyring.address)
   if (entityByPubkey !== 0) {
     res.write('conflict')
     return res.end()
@@ -69,7 +74,7 @@ async function createEntity (body, res, next) {
   }
 
   try {
-    await client.createEntity(target, name, countryID, cityID, signature, result => {
+    await client.createEntity(keyring.address, name, countryID, cityID, signature, result => {
       if (result instanceof Error) {
         console.log(result)
         return
