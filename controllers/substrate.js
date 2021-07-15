@@ -36,13 +36,20 @@ async function validateActivation (body) {
   // }
   const { substrateAccountID } = body
 
-  const balance = await client.getBalanceOf(substrateAccountID)
+  let keyring
+  try {
+    keyring = client.keyring.addFromAddress(substrateAccountID)
+  } catch (error) {
+    httpError(400)
+  }
+
+  const balance = await client.getBalanceOf(keyring.address)
   if (balance.free > 1) {
     throw httpError(409)
   }
 
   try {
-    await client.transfer(substrateAccountID, AMOUNT)
+    await client.transfer(keyring.address, AMOUNT)
   } catch (error) {
     throw httpError(error)
   }
