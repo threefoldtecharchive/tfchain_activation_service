@@ -1,6 +1,7 @@
 const { client } = require('../lib/substrate')
 const httpError = require('http-errors')
-// const { take } = require('lodash')
+const { first } = require('lodash')
+const SUBSTRATE_ERRORS = require('../lib/errors')
 // const whitelist = require('../whitelist.json')
 
 // 500 tokens with 12 decimals precision
@@ -50,14 +51,21 @@ async function validateActivation (body) {
 async function createEntity (body, res, next) {
   const { target, name, signature, countryID, cityID } = body
 
+  const ssAddress = client.keyring.addFromAddress('0x54b843bb1ef38f920271c8c9b7849274d3f3ea57059d4f2ec6e25837a7462f4e')
+  console.log(ssAddress.address)
+
   const entityByName = await client.getEntityIDByName(name)
   if (entityByName !== 0) {
-    throw httpError(409)
+    res.write('conflict')
+    return res.end()
+    // throw httpError(409)
   }
 
   const entityByPubkey = await client.getEntityIDByPubkey(target)
   if (entityByPubkey !== 0) {
-    throw httpError(409)
+    res.write('conflict')
+    return res.end()
+    // throw httpError(409)
   }
 
   try {
@@ -76,12 +84,13 @@ async function createEntity (body, res, next) {
         events.forEach(({ phase, event: { data, method, section } }) => {
           if (section === 'system' && method === 'ExtrinsicFailed') {
             console.log(`\t' ${phase}: ${section}.${method}:: ${data}`)
-            res.write('failure')
+            const module = first(data).asModule
+            const errIndex = first(module.error.words)
+            res.write(SUBSTRATE_ERRORS[errIndex])
             res.end()
           } else if (section === 'system' && method === 'ExtrinsicSuccess') {
-            res.write('success')
+            res.write('Success')
             res.end()
-            console.log(`\t' ${phase}: ${section}.${method}:: ${data}`)
           }
         })
       }
