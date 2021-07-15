@@ -24,7 +24,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(pinoMiddleware)
 
-app.use('/', require('./routes'))
+app.use('/activation', require('./routes'))
 
 app.use((req, res, next) => next(httpError.NotFound()))
 
