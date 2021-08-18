@@ -17,12 +17,30 @@ yarn
 yarn start
 ```
 
-## Post to localhost:3000/activate
+## Endpoints
 
-bash
-```
+### Activate
+
+`/activate`
+
+Activates a Substrate account and puts 500 tokens on it.
+
+Example: Post to `localhost:3000/activate`
+
+```sh
 curl --header "Content-Type: application/json" \
   --request POST \
   --data '{"kycSignature": "test", "data": {"name": "name", "email": "email"}, "substrateAccountID": "some_id"}' \
   http://localhost:3000/activate
 ```
+
+### Create Entity
+
+`/create-entity`
+
+Creates an entity object in the griddb.
+
+## KYC
+
+The KYC signature is currently not validated 
+
