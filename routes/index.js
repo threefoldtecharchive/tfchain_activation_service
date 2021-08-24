@@ -1,13 +1,13 @@
 const express = require('express')
 const router = express.Router()
-const { validateActivation, createEntity } = require('../controllers/substrate')
+const { activate, createEntity } = require('../controllers/substrate')
 
 const { validateBodyMiddleware } = require('../middleware/validator')
 
 router.post('/activate', validateBodyMiddleware('activate'), (req, res, next) => {
   const { body } = req
 
-  validateActivation(body)
+  activate(body)
     .then(() => res.send(body))
     .catch(next)
 })

@@ -3081,10 +3081,10 @@ text-table@^0.2.0:
   resolved "https://registry.yarnpkg.com/text-table/-/text-table-0.2.0.tgz#7f5ee823ae805207c00af2df4a84ec3fcfa570b4"
   integrity sha1-f17oI66AUgfACvLfSoTsP8+lcLQ=
 
-tfgrid-api-client@^0.0.1-beta.50:
-  version "0.0.1-beta.50"
-  resolved "https://registry.yarnpkg.com/tfgrid-api-client/-/tfgrid-api-client-0.0.1-beta.50.tgz#5906f48ecccea74a009ddac597870f8da7f125d7"
-  integrity sha512-LQy018K3ZrU3BA7TVOJNKEB9J/kaQRZGG7Ut8ub7ibae2C5c8BfwFWQO+u3eVsTx9382N/PwzF8mYhUvDVJzHw==
+tfgrid-api-client@0.0.5:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/tfgrid-api-client/-/tfgrid-api-client-0.0.5.tgz#e80e1e55aac2c4fc0c4324edea55aa40bfa5b98a"
+  integrity sha512-4LnHjCPbpSJ/8TkJ+lhdWwaWGs978hkk9qLCEYcLgv1v7GT+Hc0iQXavl6RNcLWKPumAU+WHHjAQBV053jytvw==
   dependencies:
     "@polkadot/api" "^4.0.3"
     bip39 "^3.0.3"

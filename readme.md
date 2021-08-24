@@ -30,7 +30,7 @@ Example: Post to `localhost:3000/activate`
 ```sh
 curl --header "Content-Type: application/json" \
   --request POST \
-  --data '{"kycSignature": "test", "data": {"name": "name", "email": "email"}, "substrateAccountID": "some_id"}' \
+  --data '{"substrateAccountID": "some_id"}' \
   http://localhost:3000/activate
 ```
 
@@ -44,3 +44,12 @@ Creates an entity object in the griddb.
 
 The KYC signature is currently not validated 
 
+
+## Deployment
+
+Build the docker image and configure following environment variables:
+
+```
+MNEMONIC=mnemonic words for account that activates
+URL=substrate websocket url
+```
