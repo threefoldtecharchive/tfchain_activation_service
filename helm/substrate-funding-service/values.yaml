@@ -5,7 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: dylanverstraete/activation-service
+  repository: tfchainactivationservice
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
@@ -60,13 +60,6 @@ resources: {}
   # requests:
   #   cpu: 900m
   #   memory: 1000Mi
-
-autoscaling:
-  enabled: false
-  minReplicas: 1
-  maxReplicas: 100
-  targetCPUUtilizationPercentage: 80
-  # targetMemoryUtilizationPercentage: 80
 
 nodeSelector: {}
 
