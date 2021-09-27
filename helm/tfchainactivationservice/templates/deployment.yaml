@@ -1,16 +1,13 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "substrate-funding-service.fullname" . }}
+  name: {{ include "tfchainactivationservice.fullname" . }}
   labels:
-    {{- include "substrate-funding-service.labels" . | nindent 4 }}
+    {{- include "tfchainactivationservice.labels" . | nindent 4 }}
 spec:
-  {{- if not .Values.autoscaling.enabled }}
-  replicas: {{ .Values.replicaCount }}
-  {{- end }}
   selector:
     matchLabels:
-      {{- include "substrate-funding-service.selectorLabels" . | nindent 6 }}
+      {{- include "tfchainactivationservice.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -18,7 +15,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "substrate-funding-service.selectorLabels" . | nindent 8 }}
+        {{- include "tfchainactivationservice.selectorLabels" . | nindent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:

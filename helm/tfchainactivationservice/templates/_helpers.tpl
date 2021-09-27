@@ -1,7 +1,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "substrate-funding-service.name" -}}
+{{- define "tfchainactivationservice.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
@@ -10,7 +10,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "substrate-funding-service.fullname" -}}
+{{- define "tfchainactivationservice.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -26,16 +26,16 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "substrate-funding-service.chart" -}}
+{{- define "tfchainactivationservice.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "substrate-funding-service.labels" -}}
-helm.sh/chart: {{ include "substrate-funding-service.chart" . }}
-{{ include "substrate-funding-service.selectorLabels" . }}
+{{- define "tfchainactivationservice.labels" -}}
+helm.sh/chart: {{ include "tfchainactivationservice.chart" . }}
+{{ include "tfchainactivationservice.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -45,17 +45,17 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "substrate-funding-service.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "substrate-funding-service.name" . }}
+{{- define "tfchainactivationservice.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "tfchainactivationservice.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "substrate-funding-service.serviceAccountName" -}}
+{{- define "tfchainactivationservice.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
-{{- default (include "substrate-funding-service.fullname" .) .Values.serviceAccount.name }}
+{{- default (include "tfchainactivationservice.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
