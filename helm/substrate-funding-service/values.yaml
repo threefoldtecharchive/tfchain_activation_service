@@ -5,7 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: dylanverstraete/substrate-funding-service
+  repository: dylanverstraete/activation-service
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
@@ -38,16 +38,16 @@ global:
 ingress:
   enabled: true
   annotations:
-    kubernetes.io/ingress.class: traefik
+    kubernetes.io/ingress.class: nginx
   hosts:
-    - host: api.substrate01.threefold.io
+    - host:
       paths: 
         - /
   tls: []
 
-url: wss://substrate01.threefold.io
-mnemonic:
-kyc_public_key:
+url: wss://tfchain.dev.threefold.io
+mnemonic: some words
+kyc_public_key: "somekey"
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
