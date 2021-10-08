@@ -48,6 +48,7 @@ ingress:
 url: wss://tfchain.dev.threefold.io
 mnemonic:
 kyc_public_key: "somekey"
+activation_amount: 1
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
