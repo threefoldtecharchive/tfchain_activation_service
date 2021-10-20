@@ -2,8 +2,7 @@
 
 ## Step 1: Go to the TFChain UI
 
-- Using a public node: https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Ftfchain.dev.threefold.io#/accounts
-- Using a private node: https://polkadot.js.org/apps/?rpc=ws%3A%2F%2F127.0.0.1%3A9944#/settings/accounts
+- Using the testnet public node: https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Ftfchain.test.threefold.io#/accounts
 
 Should look something like this:
 ![image](https://user-images.githubusercontent.com/13766992/130954090-c34193eb-0864-4f6a-aa49-7ce66b6d72fb.png)
@@ -26,4 +25,6 @@ On the accounts page, scroll down to your account and click on your name that yo
 
 ## Step 4: Activate it
 
-Go to https://tfchain.test.threefold.io/activate
+Go to https://tfchain.test.threefold.io/activation/ , paste the address in the input field and click `Activate`
+
+Your account should now be activated on Tfchain testnet.
