@@ -4,11 +4,14 @@ import { ActivateAccount } from './components/deposit'
 import axios from 'axios'
 import { useSnackbar } from 'notistack'
 
+const URL = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : ''
+
 function App () {
   const { enqueueSnackbar } = useSnackbar()
 
   const handleActivate = (account) => {
-    axios.post('http://localhost:3000/activation/activate', { substrateAccountID: account })
+    console.log(URL)
+    axios.post(`${URL}/activation/activate`, { substrateAccountID: account })
       .then(res => {
         enqueueSnackbar('Successfully activated account!')
         console.log(res)
