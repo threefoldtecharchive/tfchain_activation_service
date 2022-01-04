@@ -20,7 +20,7 @@ async function activate (body) {
 
   const balance = await client.getBalanceOf(keyring.address)
   if (balance.free > 1) {
-    throw httpError(409)
+    return
   }
 
   try {
