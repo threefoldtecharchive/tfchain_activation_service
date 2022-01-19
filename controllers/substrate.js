@@ -5,8 +5,7 @@ const SUBSTRATE_ERRORS = require('../lib/errors')
 // const whitelist = require('../whitelist.json')
 // const { KYC_PUBLIC_KEY } = process.env
 
-// 500 tokens with 7 decimals precision
-const AMOUNT = 1e7 * parseInt(process.env.ACTIVATION_AMOUNT) || 1
+const AMOUNT = parseInt(process.env.ACTIVATION_AMOUNT) || 1
 
 async function activate (body) {
   const { substrateAccountID } = body
