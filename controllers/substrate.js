@@ -19,14 +19,17 @@ async function activate (body) {
   }
 
   const balance = await client.getBalanceOf(keyring.address)
-  if (balance.free > 1) {
-    return
+
+  if (balance.free === 0) {
+    try {
+      return await client.transfer(keyring.address, AMOUNT)
+    } catch (error) {
+      throw httpError(error)
+    }
   }
 
-  try {
-    await client.transfer(keyring.address, AMOUNT)
-  } catch (error) {
-    throw httpError(error)
+  if (balance.free < 15000) {
+    return await client.transfer(keyring.address, 15000)
   }
 }
 
