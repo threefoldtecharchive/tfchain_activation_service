@@ -5,7 +5,7 @@ const SUBSTRATE_ERRORS = require('../lib/errors')
 // const whitelist = require('../whitelist.json')
 // const { KYC_PUBLIC_KEY } = process.env
 
-const AMOUNT = parseInt(process.env.ACTIVATION_AMOUNT) || 1
+const AMOUNT = 1000000
 
 async function activate (body) {
   const { substrateAccountID } = body
@@ -16,6 +16,8 @@ async function activate (body) {
   } catch (error) {
     httpError(400)
   }
+
+  console.log(`amount: ${AMOUNT}`)
 
   const balance = await client.getBalanceOf(keyring.address)
 
